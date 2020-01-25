@@ -8,11 +8,12 @@ import six
 def translate(text):
     from google.cloud import translate_v2 as translate
     translate_client = translate.Client()
-    target = "fr" #change this later
+    target = "en" #change this later
     if isinstance(text, six.binary_type):
         text = text.decode('utf-8')
-    result = translate_client.translate(text, target_language = "en")
+    result = translate_client.translate(text, target_language = target)
 
-    print(u'Text: {}'.format(result['input']))
-    print(u'Translation: {}'.format(result['translatedText']))
+    #print(u'Text: {}'.format(result['input']))
+    #print(u'Translation: {}'.format(result['translatedText']))
+    return format(result['translatedText'])
 
