@@ -29,7 +29,7 @@ def process(mp4_file= "tests/trudeau", input_lang= "fr",target_lang="en"):
 
 
 
-    return (dub.mp4, translated_script, transcript)
+    # return (dub.mp4, translated_script, transcript)
 
 def addDialect(lang):
 	if lang=="en":
