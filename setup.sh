@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#run this if gcloud installation stuff
+
+
+gcloud components update
+gcloud components install app-engine-pythons
 # run this if you get python library errors
 # DEW IT !!!!!!!!!!!!!
 
