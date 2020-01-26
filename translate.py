@@ -17,3 +17,4 @@ def translate(text):
     #print(u'Translation: {}'.format(result['translatedText']))
     return format(result['translatedText'])
 
+
