@@ -1,7 +1,9 @@
 #!/bin/bash
 
-#run this if cloud translate does not work
+#run this if gcloud installation stuff
 
+
+gcloud components update
 pip install google-cloud-translate==2.0.0
-
+gcloud components install app-engine-pythons
 
