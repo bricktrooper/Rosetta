@@ -1,7 +1,6 @@
 #import json
 
 import argparse
-
 import six
 
 """ Translates provided orig_text to target language string """
