@@ -14,3 +14,12 @@ video{
 .viewer{
     display: inline-block
 }
+
+.orig{
+    font-style: italic;
+}
+
+.trans{
+    font-style: normal;
+}
+

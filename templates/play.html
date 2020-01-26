@@ -8,10 +8,11 @@
 <body>
     <div id="viewer">
     <video controls="controls" id="video_player">
-        <source src="{{  filename  }}" type="audio/mpeg">
+        <source src="{{ url_for('static', filename = filename) }}" type="audio/mpeg">
     Your browser does not have support for HTML5 video. Sorry!
-    </video>
+        </video>
     <div id="orig">{{orig}}</div>
+    <br>
     <div id="trans">{{trans}}</div>
     </div>
 </body>

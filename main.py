@@ -6,17 +6,35 @@ from flask import send_from_directory
 import tempfile
 import uuid
 import io
+import subprocess
 
 from process import textualize
 from text2speech import speak
 
-UPLOAD_FOLDER = tempfile.gettempdir()
+
+
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'mp4'} #todo: support for mp3 files
 
 app = Flask(__name__)
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024
+
+def addDialect(lang):
+	if lang=="en":
+		return "en-CA"
+	if lang=="fr":
+		return "fr-CA"
+	if lang=="hi":
+		return "hi-IN"
+	if lang=="ja":
+		return "ja-JP"
+	if lang=="es":
+		return "es-ES"
+	if lang=="zh":
+		return "cmn-CN"
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -29,15 +47,16 @@ def send_file(filename):
 @app.route('/process/<input>/<output>/<filename>')
 def process_file(input, output, filename):
     print(url_for('send_file', filename = filename))
-    data = ("bonjour", "hello")
-    #data = textualize(url_for('send_file', filename = filename), input_lang = input, target_lang = output)
+    #data = ("bonjour", "hello")
+    data = textualize(os.path.join(app.config['UPLOAD_FOLDER'], filename), input_lang = input, target_lang = output)
     orig_text= data[0]
     trans_text = data[1]
     audiofile = uuid.uuid4().hex +".mp3"
     propername = os.path.join(app.config['UPLOAD_FOLDER'], audiofile)
-    print("GOT HERE:::")
-    speak(trans_text, output, propername)
-    return render_template('play.html', filename = propername, orig = orig_text, trans = trans_text, input = input, output = output)
+    subprocess.check_call(['./dub.sh', os.path.join(app.config['UPLOAD_FOLDER'], filename), propername])
+    print("GOT HERE:::" + propername)
+    speak(trans_text, addDialect(output), propername)
+    return render_template('play.html', filename = "uploads/"+audiofile, orig = orig_text, trans = trans_text, input = input, output = output)
 
 #@app.route('/play/<input>/<output>/<filename>')
 #def uploaded_file(filename, lang):

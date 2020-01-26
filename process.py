@@ -3,6 +3,7 @@
 from speech2text import *
 from translate import *
 from text2speech import *
+#import subprocess
 
 #return 3-tuple, 1st elem = name of translated mp3, 2nd elem = name of translated text, 3rd elem = original text
 # call with NO .p4 extension
@@ -10,6 +11,7 @@ def textualize(mp4_file = "", input_lang= "fr",target_lang="en-US"):
     transcript = transcribe(mp4_file, "tests/translated", addDialect(input_lang))
     translated_script = translate(transcript, target_lang)
     print(translated_script)
+	#subprocess.check_call(['./dub.sh', mp4_file, ])
     return (transcript, translated_script)
 
 def addDialect(lang):
