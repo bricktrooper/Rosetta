@@ -1,13 +1,12 @@
 # Have you ever heard the tragedy of Darth Plagueis the Wise?
 
-from translate import translate
-from text_2_speech import text_2_speech
+from speech2text import *
+from translate import *
+from text2speech import *
 
-transcript = "change this value later"
+transcript = transcribe("tests/trudeau.mp4", "tests/translated", "fr-CA")
 
-translated_product = translate(transcript)
-translated_transcript = translated_product[0]
-lang = translated_product[1] 
+str2 = translate(transcript, "en")
+print(str2)
 
-text_2_speech(translated_transcript,lang)
-
+speak(str2, "en-CA", "tests/translated.mp3")
