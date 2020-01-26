@@ -10,10 +10,8 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 
-INPUT_AUDIO_ENCODING = enums.RecognitionConfig.AudioEncoding.LINEAR16
-INPUT_SAMPLE_RATE = 16000   # (in Hertz)
-INPUT_LANGUAGE = 'en-US'
-INPUT_VIDEO_FILE = 'input1.mp4'
+AUDIO_ENCODING = enums.RecognitionConfig.AudioEncoding.LINEAR16
+SAMPLE_RATE = 16000   # (in Hertz)
 
 speech2text_client = speech.SpeechClient()
 
@@ -29,30 +27,36 @@ def extract_audio(in_filename, **input_kwargs):
 	except ffmpeg.Error as e:
 		print(e.stderr, file = sys.stderr)
 		sys.exit(1)
-	return types.RecognitionAudio(content = raw_audio)
+	return raw_audio
 
 # transcribes the audio to text and saves transcript to a file
-def transcribe(file_name):
+def transcribe(input_file = 'input.mp4', output_file = 'transcript', language = 'en-CA'):
 
-	# update audio config info
-	audio_config = types.RecognitionConfig(
-		encoding = INPUT_AUDIO_ENCODING,
-		sample_rate_hertz = INPUT_SAMPLE_RATE,
-		language_code = INPUT_LANGUAGE)
+	audio_info = types.RecognitionConfig(
+		encoding = AUDIO_ENCODING,
+		sample_rate_hertz = SAMPLE_RATE,
+		language_code = language)
 
 	print("Audio input settings:")
-	print("Audio Encoding:    %s" % INPUT_AUDIO_ENCODING)
-	print("Sample Rate (Hz):  %s" % INPUT_SAMPLE_RATE)
-	print("Input Language:    %s" % INPUT_LANGUAGE)
+	print("Audio Encoding:    %s" % AUDIO_ENCODING)
+	print("Sample Rate (Hz):  %s" % SAMPLE_RATE)
+	print("Input Language:    %s" % language)
 
 	print("Converting mp4 to raw audio .......")
-	audio = extract_audio(INPUT_VIDEO_FILE)
+	audio = types.RecognitionAudio(content = extract_audio(input_file))
 
 	print("Transcribing .......")
-	file = open(file_name, "a")
-	response = speech2text_client.recognize(audio_config, audio)
+	file = open(output_file, "a")
+	response = speech2text_client.recognize(audio_info, audio)
+	transcript = ""
+
 	for result in response.results:
 		file.write(result.alternatives[0].transcript)
+		transcript = transcript + format(result.alternatives[0].transcript)
 
-	print("Saving transcript in '%s' ......." % file_name)
+	print("Saving transcript in '%s' ......." % output_file)
 	file.close()
+
+	print(transcript)
+	print(format(result.alternatives[0].transcript))
+	return transcript
