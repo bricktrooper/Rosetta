@@ -2,13 +2,12 @@
 <head>
     <title>Rosetta Translated Video from {{input}} to {{output}}</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="viewer">
     <video controls="controls" id="video_player">
-        <source src="{{ url_for('static', filename = filename) }}" type="audio/mpeg">
+        <source src="{{ url_for('static', filename = filename) }}" type="video/mp4">
     Your browser does not have support for HTML5 video. Sorry!
         </video>
     <div id="orig">{{orig}}</div>
@@ -16,3 +15,5 @@
     <div id="trans">{{trans}}</div>
     </div>
 </body>
+
+

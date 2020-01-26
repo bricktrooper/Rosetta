@@ -53,10 +53,12 @@ def process_file(input, output, filename):
     trans_text = data[1]
     audiofile = uuid.uuid4().hex +".mp3"
     propername = os.path.join(app.config['UPLOAD_FOLDER'], audiofile)
-    subprocess.check_call(['./dub.sh', os.path.join(app.config['UPLOAD_FOLDER'], filename), propername])
+    
     print("GOT HERE:::" + propername)
     speak(trans_text, addDialect(output), propername)
-    return render_template('play.html', filename = "uploads/"+audiofile, orig = orig_text, trans = trans_text, input = input, output = output)
+    videofile = uuid.uuid4().hex + ".mp4"
+    subprocess.check_call(['./dub.sh', os.path.join(app.config['UPLOAD_FOLDER'], filename), propername, videofile])
+    return render_template('play.html', filename = videofile, orig = orig_text, trans = trans_text, input = input, output = output)
 
 #@app.route('/play/<input>/<output>/<filename>')
 #def uploaded_file(filename, lang):

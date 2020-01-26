@@ -11,15 +11,15 @@ video{
     font-weight: bold;
 }
 
-.viewer{
+#viewer{
     display: inline-block
 }
 
-.orig{
+#orig{
     font-style: italic;
 }
 
-.trans{
+#trans{
     font-style: normal;
 }
 
