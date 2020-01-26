@@ -8,8 +8,8 @@ from google.cloud.speech import types
 
 class Speech2Text:
 
-	DEFAULT_ENCODING = enums.RecognitionConfig.AudioEncoding.FLAC
-	DEFAULT_SAMPLE_RATE_HERTZ = 44100
+	DEFAULT_ENCODING = enums.RecognitionConfig.AudioEncoding.LINEAR16
+	DEFAULT_SAMPLE_RATE_HERTZ = 16000
 	DEFAULT_INPUT_LANGUAGE = 'en-US'
 	DEFAULT_AUDIO_FILE = 'input.flac'
 
