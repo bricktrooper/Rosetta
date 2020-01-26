@@ -21,11 +21,9 @@ class Speech2Text:
 		self.info = None
 
 	# Loads the audio into memory and returns a handle
-	def load(self, file_name):
-		print("Loading audio file '%s' ......." % (file_name))
-		with io.open(file_name, 'rb') as audio_file:
-			content = audio_file.read()
-			self.audio = types.RecognitionAudio(content = content)
+	def load(self, raw_audio):
+		print("Loading audio file .......")
+		self.audio = types.RecognitionAudio(content = raw_audio)
 
 	# sets the audio encoding, sample rate (Hz), and language
 	def config(self, encoding, sample_rate, language):
@@ -33,10 +31,7 @@ class Speech2Text:
 		print("Encoding:          %s" % encoding)
 		print("Sample Rate (Hz):  %s" % sample_rate)
 		print("Language:          %s" % language)
-		self.info = types.RecognitionConfig(
-			encoding = encoding,
-			sample_rate_hertz = sample_rate,
-			language_code = language)
+		self.info = types.RecognitionConfig(encoding = encoding, sample_rate_hertz = sample_rate, language_code = language)
 
 	# translates the audio and saves transcript to a file
 	def translate(self, file_name):
