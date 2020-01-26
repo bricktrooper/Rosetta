@@ -4,8 +4,11 @@ from flask import Flask, render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import tempfile
+import uuid
+import io
 
-from process.py import process
+from process import textualize
+from text2speech import speak
 
 UPLOAD_FOLDER = tempfile.gettempdir()
 ALLOWED_EXTENSIONS = {'mp4'} #todo: support for mp3 files
@@ -23,18 +26,22 @@ def allowed_file(filename):
 def send_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-@app.route('/process/<in>/<out>/<filename>')
-def process_file():
-    data = process()
-    trans_audio = data[0]
-    orig_file = data[1]
-    trans_file = data[2]
-    with open(url_for(orig_file))
-    return render_template('play.html', )
+@app.route('/process/<input>/<output>/<filename>')
+def process_file(input, output, filename):
+    print(url_for('send_file', filename = filename))
+    data = ("bonjour", "hello")
+    #data = textualize(url_for('send_file', filename = filename), input_lang = input, target_lang = output)
+    orig_text= data[0]
+    trans_text = data[1]
+    audiofile = uuid.uuid4().hex +".mp3"
+    propername = os.path.join(app.config['UPLOAD_FOLDER'], audiofile)
+    print("GOT HERE:::")
+    speak(trans_text, output, propername)
+    return render_template('play.html', filename = propername, orig = orig_text, trans = trans_text, input = input, output = output)
 
-@app.route('/play/<in>/<out>/<filename>')
-def uploaded_file(filename, lang):
-    return redirect(url_for('process_file', filename = filename, lang=lang))
+#@app.route('/play/<input>/<output>/<filename>')
+#def uploaded_file(filename, lang):
+#    return redirect(url_for('process_file', filename = filename, lang=lang))
 
 @app.route('/', methods=['GET','POST'])
 def upload_file():
@@ -49,8 +56,8 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename, lang=request.form['languages']))
-    return render_template('index.html', audio_file = "mememe.mp3")
+            return redirect(url_for('process_file', filename=filename, input=request.form['input'], output=request.form['output']))
+    return render_template('index.html')
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

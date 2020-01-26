@@ -6,17 +6,11 @@ from text2speech import *
 
 #return 3-tuple, 1st elem = name of translated mp3, 2nd elem = name of translated text, 3rd elem = original text
 # call with NO .p4 extension
-def process(mp4_file= "tests/trudeau", input_lang= "fr",target_lang="en"):
-
-    transcript = transcribe((mp4_file+".mp4"), "tests/translated", addDialect(input_lang))
-
+def textualize(mp4_file = "", input_lang= "fr",target_lang="en-US"):
+    transcript = transcribe(mp4_file, "tests/translated", addDialect(input_lang))
     translated_script = translate(transcript, target_lang)
     print(translated_script)
-
-    mp3_translated_name =  mp4_file+"_translated.mp3"
-    speak(translated_script, addDialect(target_lang), mp3_translated_name)
-
-    return (mp3_translated_name, translated_script, transcript)
+    return (transcript, translated_script)
 
 def addDialect(lang):
 	if lang=="en":

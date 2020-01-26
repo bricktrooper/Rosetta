@@ -32,3 +32,4 @@ def speak(text, language = 'en-CA', output_file = 'output.mp3'):
                 # Write the response to the output file.
                 out.write(response.audio_content)
                 print('Audio content written to file %s' % output_file)
+        print("done printing!!! for " + output_file)
