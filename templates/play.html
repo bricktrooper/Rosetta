@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Rosetta Translated Video to {{lang}}</title>
+    <title>Rosetta Translated Video from {{in}} to {{out}}</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -11,7 +11,7 @@
         <source src="{{  url_for('send_file', filename=filename)  }}" type="audio/mpeg">
     Your browser does not have support for HTML5 video. Sorry!
     </video>
-    <div id="orig">Original Text</div>
-    <div id="trans">Translated Text</div>
+    <div id="orig">{{orig}}</div>
+    <div id="trans">{{trans}}</div>
     </div>
 </body>
