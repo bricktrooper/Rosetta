@@ -12,4 +12,5 @@ pip install google-cloud-translate==2.0.0
 pip install ffmpeg
 pip install ffmpeg-python
 pip install google-cloud-texttospeech
+pip install google-cloud-speech
 
