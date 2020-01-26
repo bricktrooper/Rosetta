@@ -3,6 +3,7 @@
 from speech2text import *
 from translate import *
 from text2speech import *
+import subprocess
 
 #return 3-tuple, 1st elem = name of translated mp3, 2nd elem = name of translated text, 3rd elem = original text
 # call with NO .p4 extension
@@ -16,7 +17,19 @@ def process(mp4_file= "tests/trudeau", input_lang= "fr",target_lang="en"):
     mp3_translated_name =  mp4_file+"_translated.mp3"
     speak(translated_script, addDialect(target_lang), mp3_translated_name)
 
-    return (mp3_translated_name, translated_script, transcript)
+    ogFile = mp4_file+".mp4"
+
+
+    #subprocess.call("./dub.sh ogFile mp3_translated_name")
+
+
+
+
+    subprocess.check_call(['./dub.sh', ogFile, mp3_translated_name])
+
+
+
+    return (dub.mp4, translated_script, transcript)
 
 def addDialect(lang):
 	if lang=="en":
