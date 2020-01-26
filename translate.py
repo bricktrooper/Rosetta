@@ -15,6 +15,10 @@ def translate(text):
 
     #print(u'Text: {}'.format(result['input']))
     #print(u'Translation: {}'.format(result['translatedText']))
-    return format(result['translatedText'])
+    
+    trans_text = format(result['translatedText'])
+    translated_product= [trans_text, target]
+
+    return translated_product
 
 
