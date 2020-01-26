@@ -6,3 +6,10 @@ window.addEventListener('load', function () {
 
 });
 
+function updateOrig(s){
+    $("#orig").text(s)
+}
+
+function updateTrans(s){
+    $("#trans").text(s)
+}

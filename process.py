@@ -10,6 +10,7 @@ import subprocess
 def process(mp4_file= "tests/trudeau", input_lang= "fr",target_lang="en"):
 
     transcript = transcribe((mp4_file+".mp4"), mp4_file+".txt", addDialect(input_lang))
+    #transcript = transcribe((mp4_file+".mp4"), "tests/translated", addDialect(input_lang))
 
     translated_script = translate(transcript, target_lang)
     print(translated_script)
@@ -18,17 +19,9 @@ def process(mp4_file= "tests/trudeau", input_lang= "fr",target_lang="en"):
     speak(translated_script, addDialect(target_lang), mp3_translated_name)
 
     ogFile = mp4_file+".mp4"
-
-
     #subprocess.call("./dub.sh ogFile mp3_translated_name")
-
-
-
-    
     subprocess.check_call(['./dub.sh', ogFile, mp3_translated_name])
-
-
-
+    
    # return (dub.mp4, translated_script, transcript)
 
 def addDialect(lang):

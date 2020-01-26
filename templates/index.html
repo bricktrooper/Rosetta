@@ -11,18 +11,15 @@
         <div id="author">Ramana Murugesan, Kyle Pinto, Chung Yu, Snehit Khair</div>
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="file">
+            <select name="languages">
+                <option value="en">English</option>
+                <option value="fr">French</option>
+                <option value="es">Spanish</option>
+                <option value="de">German</option>
+                <option value="hi">Hindi</option>
+            </select>
             <input type="submit" value=Upload>
         </form>
-        
-        <select name="languages">
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-        </select>
-        <audio controls="controls" id="audio_player">
-            <source src="{{audio_file}}" type="audio/mpeg">
-        </audio>
-        <form method="POST"><input type=""></form>
     </body>
 </html>
 

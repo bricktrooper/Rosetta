@@ -2,3 +2,15 @@ body {
     font-family: "helvetica", sans-serif;
   }
 
+video{
+    width: 640px;
+    height: 480px;
+}
+
+#title{
+    font-weight: bold;
+}
+
+.viewer{
+    display: inline-block
+}
