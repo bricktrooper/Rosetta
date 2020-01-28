@@ -4,7 +4,8 @@ ORIGINAL="$1"
 TRANSLATED="$2"
 
 # mute
-./ffmpeg -i "$ORIGINAL" -vcodec copy -an tests/muted.mp4
+./ffmpeg -i "inputs/${ORIGINAL}.mp4" -vcodec copy -an "outputs/${ORIGINAL}_muted.mp4"
 
 # dub
-./ffmpeg -i tests/muted.mp4 -i "$TRANSLATED" -c:v copy -c:a aac -strict experimental tests/dubbed.mp4
+./ffmpeg -i "outputs/${ORIGINAL}_muted.mp4" -i "outputs/${TRANSLATED}.mp3" \
+		 -c:v copy -c:a aac -strict experimental "outputs/${ORIGINAL}_dubbed.mp4"

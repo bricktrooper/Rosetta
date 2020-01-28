@@ -3,3 +3,4 @@ venv/
 __pycache__/
 speech2text/__pycache__
 .DS_Store
+outputs/
